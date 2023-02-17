@@ -1,0 +1,140 @@
+\newpage
+\part{\acrlong{secondSection}}
+\section{Definici\'{o}n}
+Son datos, que contextualmente deben tener relaci\'{o}n, f\'{i}sicamente pueden o no tener relaci\'{o}n y se almacenan en alg\'{u}n lugar.\\
+Son conexiones de datos relacionados.\\
+Pueden tener relaci\'{o}n f\'{i}sica o contextual.\\
+La informaci\'{o}n por s\'{i} sola es una cosa, pero el SGDB (Sistema gestor de bases de datos).\\
+\textit{El SGDB}
+
+\section{Arquitectura BBDD Oracle}
+\begin{itemize}
+	\item Multitenant Architecture.
+	\item Services and connections.
+	\item Data Dictionary Architecture.
+	\item Security in CDB.
+	\item Managing a CDB.
+\end{itemize}
+Tenant = Inquilino.\\
+Con \'{e}ste esquema, el servidor se pude utilizar de mejor forma, evitando futuros problemas de migraciones.\\
+Es como vivir en un edificio de departamentos, permite que exista mejor comunicaci\'{o}n entre DDBB.\\
+En la estructura \textit{tenant} se puede simplemente utilizar las instalaciones ya hechas, sin necesidad de reinstalar todo.\\
+
+\section{Hoja de ruta de versiones DDBB Oracle}
+\begin{center}
+	\begin{tabular}{| c | c | c | c | c | c | c |}
+		\hline
+		2009 & 11.2.0.4 LT& & & & & \\
+		\hline
+		2010 & LT & & & & & \\
+		\hline
+		2011 & LT & & & & & \\
+		\hline
+		2012 & LT& & & & & \\
+		\hline
+		2013 & LT & & & & & \\
+		\hline
+		2014 & LT & & & & & \\
+		\hline
+		2015 & CEPS & & & & & \\
+		\hline
+		2016 & CEPS & & & & & \\
+		\hline
+		2017 & CEPS& & & & & \\
+		\hline
+		2018 & CEPS & & & & & \\
+		\hline
+		2019 & CESE & & & & & \\
+		\hline
+		2020 & CESE & & & & & \\
+		\hline
+		2021 & CESM & & & & & \\
+		\hline
+		2022 & CESM & & & & & \\
+		\hline
+		2023 & & & & & & \\
+		\hline
+		2024 & & & & & & \\
+		\hline
+		2025 & & & & & & \\
+		\hline
+		2026 & & & & & & \\
+		\hline
+		2027 & & & & & & \\
+		\hline
+	\end{tabular}
+\end{center}
+Las versione de Oracle se nombran a partir del a\~{n}o en el que salen.
+
+\section{PDBs}
+Pluggable Databases (PDBs)
+Tienen tres capas:
+\begin{itemize}
+	\item CDB (Multi containter database) \textit{ROOT}
+	\item PDB (seed) \textit{PDB\$SEED}
+	\item  PDBs PDB applications as if it were a non-CBD.
+\end{itemize}
+
+\textbf{Every CDB contains exactly one root, exactly one seed PDB and zero or more user-created PDBs}
+
+Las arquitecturas multitenant pueden albergar hasta 252 inquilinos te\'{o}ricos.\\
+El n\'{u}mero de inquilinos reales se obtiene de repartir los recursos del servidor a las DDBB.\\
+La arquitectura EXADATA nos permite tener servidores con mejores y mayores prestaciones.\\
+La arquitectura \textit{tenant} puede subirse a la nube, con Oracle Cloud, Azure, AWS, GCS, SAP, etc.\\
+
+\section{Arquitectura de un contenedor de bases de datos}
+\subsection{Componentes principales}
+\begin{itemize}
+	\item Procesos
+	\item Memoria
+	\item Datos
+\end{itemize}
+\subsection{Single DB shares}
+\begin{itemize}
+	\item BG process.
+	\item Shared/process memory.
+	\item Oracle metadata.
+	\item Redo Log files.
+	\item Control files.
+	\item Some datafiles.
+\end{itemize}
+\subsection{CDA}
+\begin{itemize}
+	\item Server
+	\begin{itemize}
+		\item Instance
+			\begin{itemize}
+				\item Sustem Gloab Area
+				\begin{itemize}
+					\item PDBd2
+					\item PDBd3
+					\item PDBd4
+					\item PDBd2
+				\end{itemize}
+				\item Process structures
+			\end{itemize}
+		\item Container database
+			\begin{itemize}
+				\item Root Container
+				\begin{itemize}
+					\item Datafiles
+					\begin{itemize}
+						\item System
+						\item SysAux
+					\end{itemize}
+					\item Undo
+					\item Temp
+					\item Control files
+					\item Redo Log Files
+				\end{itemize}
+			\end{itemize}
+		\item PDBs
+	\end{itemize}
+\end{itemize}
+Se genera un espacio en disco que genera un archivo de UNDO\\
+Los respaldos deben ser probados para respaldarlos correctamente.\\
+Para recuperar la informaci\'{o}n se debe buscar un respaldo previo o completo antes de la fecha deseada y posteriormente aplicar los \textit{Redo Logs}\\
+Las consultas no se almacenan en los \textit{redo logs}.\\
+Las DDBB \textit{in memory} pueden ser peligrosas debido a que son muy demandantes de la RAM.\\
+Su factor de compresi\'{o}n m\'{a}ximo es de 1.7x\\
+
